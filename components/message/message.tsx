@@ -1,6 +1,6 @@
 "use client"
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store/store';
 import { extractTime } from "../../utils/extractTime";
 import "../../app/style/components/message.scss"
@@ -22,7 +22,7 @@ interface User {
 
 const Message: React.FC<{ message: Message }> = ({ message }) => {
     const [storedUser, setStoredUser] = useState<User | null>(null);
-    const user = JSON.parse(localStorage.getItem("user") ?? "{}");
+    const user = useSelector((state: RootState) => state.user);
     const fromMe = message.senderId === user.id;
     const formattedTime = extractTime(message.createdAt);
     const chatClassName = fromMe ? "chat-start" : "chat-and";

@@ -24,52 +24,12 @@ export const updateConversationUnread = (conversationId: any, unread: any, unrea
 };
 
 
-export const updateUnreadCount = (conversationId: any, count: any) => {
-    const unreadCounts = JSON.parse(localStorage.getItem('unreadCounts') || '{}');
-    unreadCounts[conversationId] = count;
-    localStorage.setItem('unreadCounts', JSON.stringify(unreadCounts));
-
-    return {
-        type: 'UPDATE_UNREAD_COUNT',
-        payload: { conversationId, count },
-    };
-};
-
-export const loadUnreadCounts = () => {
-    const unreadCounts = JSON.parse(localStorage.getItem('unreadCounts') || '{}');
-    return {
-        type: 'LOAD_UNREAD_COUNTS',
-        payload: unreadCounts,
-    };
-};
-
 
 export const setNotification = (notifications: any) => ({
     type: "SET_NOTIFICATION",
     payload: notifications,
 });
 
-export const updateUnreadCountNotification = (notificationId: any, conversationId: any, count: any) => {
-    const unreadCounts = JSON.parse(localStorage.getItem('unreadCountsNotification') || '{}');
-    unreadCounts[conversationId] = {
-        notificationId,
-        count
-    };
-    localStorage.setItem('unreadCountsNotification', JSON.stringify(unreadCounts));
-
-    return {
-        type: 'UPDATE_UNREAD_COUNT_NOTIFICATION',
-        payload: { notificationId, conversationId, count },
-    };
-};
-
-export const loadUnreadCountNotification = () => {
-    const unreadCounts = JSON.parse(localStorage.getItem('unreadCountsNotification') || '{}');
-    return {
-        type: 'LOAD_UNREAD_COUNTS_NOTIFICATION',
-        payload: unreadCounts,
-    };
-};
 
 export const setHasNewMessage = (admin: boolean) => ({
     type: 'SET_HAS_NEW_MESSAGE',

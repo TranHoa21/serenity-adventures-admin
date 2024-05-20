@@ -7,7 +7,7 @@ import axiosInstance from "../app/api/axiosInstance"
 const useGetConversations = () => {
     const [loading, setLoading] = useState(false);
     const [conversations, setConversations] = useState([]);
-    const currentUserID = JSON.parse(localStorage.getItem("storedUser") ?? "{}").id;
+    const currentUserID = useSelector((state: RootState) => state.user.id);
     useEffect(() => {
         const getConversations = async () => {
             setLoading(true);

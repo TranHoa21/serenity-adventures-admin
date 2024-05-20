@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useRef, ChangeEvent, FormEvent, } from 'react';
+import React, { useState, useRef, ChangeEvent, FormEvent, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import 'react-quill/dist/quill.snow.css';
 import ReactQuill from 'react-quill';
@@ -18,7 +18,7 @@ const ClientComponent = () => {
     const [image, setImage] = useState<File | null>(null);
     const router = useRouter();
     const [price, setPrice] = useState<number>(0);
-
+    const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
     const onChange = (newValue: string, delta: any, source: any, editor: any) => {
         if (source === 'user') {
@@ -74,7 +74,6 @@ const ClientComponent = () => {
 
 
     return (
-
         <div>
             <h1>Create New Tour  </h1>
 
@@ -95,7 +94,6 @@ const ClientComponent = () => {
 
             <div className="description">
                 <ReactQuill
-                    ref={reactQuillRef}
                     theme="snow"
                     placeholder="Start writing..."
                     modules={{
@@ -139,6 +137,7 @@ const ClientComponent = () => {
                     value={value}
                     onChange={onChange}
                 />
+
             </div>
             <button className="btn" type="submit" onClick={handleSubmit}  >Save</button>
 

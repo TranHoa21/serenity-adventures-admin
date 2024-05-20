@@ -104,7 +104,6 @@ export default function SideBar() {
     const hasNewMessage = useSelector((state: RootState) => state.mess.admin);
     const hasNewNotification = useSelector((state: RootState) => state.mess.status);
     const handleLogout = () => {
-        localStorage.removeItem('storedUser');
         dispatch(logout());
         setIsLoggedIn(false);
         router.push('/login');
@@ -118,7 +117,6 @@ export default function SideBar() {
 
                 setStoredUser(userData);
                 dispatch(setUser({ ...user, id: user.id }));
-                localStorage.setItem('storedUser', JSON.stringify(userData));
             } catch (error) {
                 console.error('Lỗi khi lấy thông tin người dùng:', error);
             }
@@ -131,7 +129,8 @@ export default function SideBar() {
     }, [fetchDataTrigger, user, dispatch]);
 
     useEffect(() => {
-        const storedUserData = localStorage.getItem('storedUser');
+        const storedUserData = useSelector((state: RootState) => state.user.id);
+        ;
         if (storedUserData) {
             const parsedUserData = JSON.parse(storedUserData);
             setStoredUser(parsedUserData);

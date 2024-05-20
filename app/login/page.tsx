@@ -18,7 +18,6 @@ const Login = () => {
 
 
     const handleLogout = () => {
-        localStorage.removeItem('user');
         router.push('/login');
     };
 
@@ -43,9 +42,7 @@ const Login = () => {
             const userData = res.data.user;
             const role = userData.role;
 
-            localStorage.setItem('user', JSON.stringify(userData));
             const jwtToken = res.data.jwtToken;
-            localStorage.setItem('token', jwtToken);
             dispatch(loginSuccess(res.data));
             dispatch(setUser(userData));
 

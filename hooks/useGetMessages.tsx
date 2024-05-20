@@ -8,7 +8,7 @@ import axiosInstance from '../app/api/axiosInstance'
 const useGetMessages = () => {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
-    const senderId = JSON.parse(localStorage.getItem("storedUser") ?? "{}").id;
+    const senderId = useSelector((state: RootState) => state.user.id);
     const selectedConversation = useSelector((state: RootState) => state.mess.selectedConversation)
     useEffect(() => {
         const getMessages = async () => {

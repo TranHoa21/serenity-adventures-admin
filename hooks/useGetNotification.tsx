@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 import axiosInstance from "../app/api/axiosInstance";
-import { setNotification, loadUnreadCountNotification, updateUnreadCountNotification, setHasNewNotification } from "../app/store/actions/messActions";
-import { useDispatch, useSelector } from "react-redux";
+import { setHasNewNotification } from "../app/store/actions/messActions";
+import { useDispatch } from "react-redux";
 
 const useGetNotifications = () => {
     const [loading, setLoading] = useState(false);

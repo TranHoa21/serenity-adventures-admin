@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../my-app/app/store/store";
-import { setNotification, loadUnreadCountNotification, updateUnreadCountNotification, setHasNewNotification } from "../app/store/actions/messActions";
+import { setNotification, setHasNewNotification } from "../app/store/actions/messActions";
 import { io, Socket } from "socket.io-client";
 
 
@@ -32,9 +32,7 @@ const useListenMessages = () => {
 		};
 	}, []);
 
-	useEffect(() => {
-		dispatch(loadUnreadCountNotification());
-	}, [dispatch]);
+
 
 	useEffect(() => {
 		const handleNewNotification = (newNotification: Notification) => {
@@ -44,7 +42,6 @@ const useListenMessages = () => {
 			const conversationId = newNotification.senderId;
 			const notificationId = newNotification.notificationId
 			const unreadCount = updatedMessages.filter(msg => msg.senderId === conversationId && msg.unread).length;
-			dispatch(updateUnreadCountNotification(notificationId, conversationId, unreadCount));
 			dispatch(setHasNewNotification(false));
 
 		};

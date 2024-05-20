@@ -1,12 +1,12 @@
 "use client"
 
-import React, { useState, useRef, ChangeEvent, FormEvent, } from 'react';
+import React, { useState, useRef, ChangeEvent, FormEvent, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import "../../../style/blog/create.scss";
-import { Delta, DeltaOperation } from 'quill';
 import 'react-quill/dist/quill.snow.css';
+import dynamic from 'next/dynamic';
 
 const ClientComponent = () => {
     const reactQuillRef = useRef<ReactQuill>(null);
@@ -16,8 +16,8 @@ const ClientComponent = () => {
     const [description, setDescription] = useState('');
     const [image, setImage] = useState<File | null>(null);
     const [reviewImageUrl, setPreviewImageUrl] = useState(''); // Thay đổi kiểu dữ liệu của state image
+    const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
-    const [selectedImageAlt, setSelectedImageAlt] = useState('');
     const router = useRouter();
 
 
@@ -116,7 +116,6 @@ const ClientComponent = () => {
 
             <div className="content">
                 <ReactQuill
-                    ref={reactQuillRef}
                     theme="snow"
                     placeholder="Start writing..."
                     modules={{

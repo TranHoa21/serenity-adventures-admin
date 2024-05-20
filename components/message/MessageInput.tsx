@@ -2,11 +2,13 @@ import { useState } from "react";
 import { BsSend } from "react-icons/bs";
 import useSendMessage from "../../hooks/useSendMessage";
 import "../../app/style/components/messageinput.scss"
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../app/store/store';
 
 const MessageInput = () => {
     const [message, setMessage] = useState("");
     const { loading, sendMessage } = useSendMessage();
-    const senderId = JSON.parse(localStorage.getItem("user") ?? "{}").id;
+    const senderId = useSelector((state: RootState) => state.user.id);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
