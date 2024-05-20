@@ -1,0 +1,37 @@
+.input-mess{
+    padding: 1rem;
+    margin: 0.75rem;
+    .in-box{
+        width: 100%;
+        position:relative;
+        .mess-in{
+            border: 1px solid;
+             border-radius: 0.75rem;
+             display: block;
+             width: 100%;
+           padding: 0.625rem;
+           background-color: #4b5563;
+            border-color: #718096;
+            color: #fff;
+        }
+        .btn-message{
+            position: absolute;
+            top: 0; 
+            bottom: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            padding: 0 10px ;
+            border-radius: 15px;
+            border: none;
+        }
+    }
+}
+
+.mes-box{
+    padding-left: 1rem;
+padding-right: 1rem;
+flex: 1;
+overflow: auto;
+color: black
+}

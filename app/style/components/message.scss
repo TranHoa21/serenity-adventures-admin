@@ -1,0 +1,108 @@
+
+.chat {
+  display: flex;
+  margin-bottom: 1rem; 
+  .chat-image {
+    width: 40px; /* Điều chỉnh kích thước ảnh theo nhu cầu */
+    height: 40px; /* Điều chỉnh kích thước ảnh theo nhu cầu */
+    border-radius: 50%;
+    overflow: hidden;
+    
+    .avatar-mess {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  
+.chat-bubble {
+    max-width: 70%; 
+    color: rgb(0, 0, 0);
+    padding: 0.5rem;
+    border-radius: 0.5rem; 
+    .shake{
+        animation: shake 0.5s infinite;
+    }
+    .bg-blue-500 {
+      background-color: #3b82f6; /* Màu xanh của Tailwind CSS */
+    }
+    @keyframes shake {
+        0% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-5px);
+        }
+        50% {
+          transform: translateX(5px);
+        }
+        75% {
+          transform: translateX(-5px);
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+    
+    &.text-white {
+      color: #fff; /* Màu chữ trắng của Tailwind CSS */
+    }
+    
+    &.shake {
+      animation: shake 0.5s infinite; /* Hoạt hình rung */
+    }
+  }
+  
+.chat-footer {
+    opacity: 0.5; 
+    font-size: 0.75rem; 
+  }
+ 
+}
+
+
+.chat-end {
+  justify-content: flex-start;
+  }
+  .chat-start {
+    display: flex ;
+    justify-content: flex-end;
+    .chat-image {
+      order: 3;
+      display: flex ;
+      width: 40px; 
+      height: 40px; 
+      border-radius: 50%;
+      overflow: hidden;
+      
+      .avatar-mess {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    
+  .chat-bubble {
+    order: 2;
+      max-width: 70%; 
+      color: rgb(0, 0, 0);
+      padding: 0.5rem;
+      border-radius: 0.5rem; 
+      .shake{
+          animation: shake 0.5s infinite;
+      }
+      .bg-blue-500 {
+        background-color: #3b82f6; /* Màu xanh của Tailwind CSS */
+      }
+
+      &.text-white {
+        color: #fff; /* Màu chữ trắng của Tailwind CSS */
+      }
+    }
+    
+  .chat-footer {
+    order: 1;
+      opacity: 0.5; 
+      font-size: 0.75rem; 
+    }
+  }   

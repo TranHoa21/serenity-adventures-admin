@@ -1,0 +1,66 @@
+@media (min-width: 768px) {
+    .message-container{
+        width: 100%;
+        .nochat-container{
+            .nochat-item{
+                font-size: 1.125rem;
+                p{
+                    color: black;
+
+                }
+                .text-3xl{
+                    font-size: 3.75rem;
+                    color: black;
+                    
+                }
+            }
+        }
+    }
+  }
+
+  .message-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    .mes-item{
+        background-color: #ffffff;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgb(138, 138, 138);
+    border-radius: 10px;
+        .label-text{
+            display: inline;
+            color: black;
+        }
+        .name-u{
+            color: #1a202c;
+            font-weight: bold;
+        }
+    }
+    .nochat-container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        .nochat-item{
+          padding-left: 1rem;
+          padding-right: 1rem;
+          text-align: center;
+          font-size: 1.25rem;
+          font-weight: 600;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          color: black;
+          gap: 0.5rem;
+          p{
+            color: black;
+          }
+          .text-3xl{
+            font-size: 1.875rem;
+            text-align: center;
+          }
+        }
+    }
+    
+  }

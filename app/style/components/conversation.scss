@@ -1,0 +1,48 @@
+.conversation {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    border-bottom: 1px solid rgb(153, 153, 153);
+
+    cursor: pointer;
+    .avatar{
+        .user-A{
+            .img-av-user{
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+        }
+    }
+    .side-mess{
+      display: flex;
+      flex-direction: column;
+       flex: 1;
+       .between{
+        display: flex;
+        --tw-space-x-reverse: 0;
+         margin-right: calc(0.75rem * var(--tw-space-x-reverse));
+         margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)));
+         justify-content: space-between;
+        .conver-name{
+          font-weight: bold;
+          color: black
+        }
+       }
+    }
+  }
+  
+  .conversation:hover {
+    background-color: #4773d4;
+  }
+  
+  
+  
+  @media (min-width: 640px) {
+    .conversation {
+      padding: 0.5rem 1rem;
+    }
+  }

@@ -1,0 +1,42 @@
+.nav-container{
+    padding: 20px;
+    border-radius: 20px;
+    background-color: var(--bgSoft);
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    .nav-title{
+        color: var(--textSoft);
+        font-weight: bold;
+        text-transform:capitalize;
+    }
+    .nav-menu{
+        display:flex;
+        align-items: center;
+        gap:20px;
+        .search{
+            display:flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #2e374a;
+            padding: 10px;
+            border-radius: 10px;
+            .input{
+                background-color: transparent;
+                border:none;
+                color: var(--text)
+            }
+        }
+        .icons{
+            display:flex;
+            gap:20px;
+            z-index: 100;
+            .chat{
+                height: 500px;
+                width: 300px;
+                background-color: white;
+                border-radius: 10px;
+            }
+        }
+    }
+}
