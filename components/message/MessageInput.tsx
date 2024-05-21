@@ -4,11 +4,14 @@ import useSendMessage from "../../hooks/useSendMessage";
 import "../../app/style/components/messageinput.scss"
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store/store';
+import { getAuthCookie } from "../../utils/cookies"
 
 const MessageInput = () => {
     const [message, setMessage] = useState("");
     const { loading, sendMessage } = useSendMessage();
-    const senderId = useSelector((state: RootState) => state.user.id);
+    const userId = getAuthCookie();
+    const senderId = userId;
+
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

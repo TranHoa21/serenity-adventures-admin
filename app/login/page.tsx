@@ -7,19 +7,14 @@ import { loginSuccess } from '../store/actions/authActions';
 import { setUser } from '../store/actions/userActions';
 import "../style/login/login.scss"
 import axiosInstance from '../api/axiosInstance'
-import { io } from "socket.io-client";
+import Cookies from 'js-cookie';
+
 const Login = () => {
     const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const router = useRouter();
 
-
-
-
-    const handleLogout = () => {
-        router.push('/login');
-    };
 
     const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
@@ -33,7 +28,7 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const res = await axiosInstance.post('https://serenity-adventures-demo.onrender.com//api/v1/auth/login', {
+            const res = await axiosInstance.post('https://serenity-adventures-demo.onrender.com/api/v1/auth/login', {
                 email,
                 password,
             }, {
@@ -41,16 +36,17 @@ const Login = () => {
             });
             const userData = res.data.user;
             const role = userData.role;
-
-            const jwtToken = res.data.jwtToken;
-            dispatch(loginSuccess(res.data));
-            dispatch(setUser(userData));
-
+            const userId = userData.id;
+            Cookies.set('isLoggedIn', true.toString());
+            Cookies.set('userId', userId);
+            Cookies.set('accessToken', res.data.accessToken);
             if (role === true) {
                 console.log("check", userData)
                 router.push('/dashboard');
             } else {
-                handleLogout();
+
+                router.push('/...');
+
             }
         } catch (error) {
             console.error('Lỗi:', error);

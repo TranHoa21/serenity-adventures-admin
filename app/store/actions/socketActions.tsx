@@ -8,7 +8,7 @@ export const UPDATE_ONLINE_USERS = 'UPDATE_ONLINE_USERS';
 
 // Action creators
 export const connectSocket = (userId: any) => {
-    const socket = io("https://serenity-adventures-demo.onrender.com/", {
+    const socket = io("https://serenity-adventures-demo.onrender.com", {
         query: {
             userId: userId,
         },

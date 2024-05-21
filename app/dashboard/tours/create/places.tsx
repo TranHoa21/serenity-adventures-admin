@@ -25,7 +25,7 @@ export const PlaceSelect: React.FC<PlaceSelectProps> = ({ value, onChange }) => 
     useEffect(() => {
         const fetchPlaces = async () => {
             try {
-                const response = await axios.get<Place[]>("https://serenity-adventures-demo.onrender.com//api/v1/place");
+                const response = await axios.get<Place[]>("https://serenity-adventures-demo.onrender.com/api/v1/place");
                 setPlaces(response.data);
             } catch (error) {
                 console.error("Error fetching places:", error);

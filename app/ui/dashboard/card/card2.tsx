@@ -18,7 +18,7 @@ export default function CardTotalRevenue() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://serenity-adventures-demo.onrender.com//api/v1/booking');
+                const response = await axios.get('https://serenity-adventures-demo.onrender.com/api/v1/booking');
                 const data = response.data as Booking[];
 
                 // Lấy tháng hiện tại và tháng trước

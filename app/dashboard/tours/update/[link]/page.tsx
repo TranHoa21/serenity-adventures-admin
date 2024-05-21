@@ -79,7 +79,7 @@ const ClientComponent = () => {
                 formData.append('file', image); // Sửa 'image' thành 'file'
             }
 
-            const response = await axios.put(`https://serenity-adventures-demo.onrender.com//api/v1/tour/${link}`, formData, {
+            const response = await axios.put(`https://serenity-adventures-demo.onrender.com/api/v1/tour/${link}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -93,7 +93,7 @@ const ClientComponent = () => {
 
     useEffect(() => {
         if (link) {
-            axios.get<Tour>(`https://serenity-adventures-demo.onrender.com//api/v1/tour/${link}`)
+            axios.get<Tour>(`https://serenity-adventures-demo.onrender.com/api/v1/tour/${link}`)
                 .then(response => {
 
                     setTour(response.data);

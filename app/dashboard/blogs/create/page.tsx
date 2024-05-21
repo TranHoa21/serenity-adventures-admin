@@ -62,7 +62,7 @@ const ClientComponent = () => {
                 formData.append('file', image); // Sửa 'image' thành 'file'
             }
 
-            const response = await axios.post('https://serenity-adventures-demo.onrender.com//api/v1/post', formData, {
+            const response = await axios.post('https://serenity-adventures-demo.onrender.com/api/v1/post', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data' // Đảm bảo cài đặt 'Content-Type' là 'multipart/form-data'
                 }

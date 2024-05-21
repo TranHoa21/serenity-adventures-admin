@@ -4,7 +4,7 @@ import "../../app/style/components/notification.scss"
 import axios from "axios"
 import { useRouter } from 'next/navigation';
 import { setHasNewNotification } from "../../app/store/actions/messActions"
-
+import { removeNotification } from "../../utils/cookies"
 const Notification = ({ notification, lastIdx }: any) => {
     const isSelected = notification.status === false;
     const notificationId = notification.id;
@@ -15,9 +15,10 @@ const Notification = ({ notification, lastIdx }: any) => {
     const handleSelectConversation = () => {
         console.log("check id ", id)
         try {
-            axios.put(`https://serenity-adventures-demo.onrender.com//api/v1/notification/${notificationId}`, { status: true })
+            axios.put(`https://serenity-adventures-demo.onrender.com/api/v1/notification/${notificationId}`, { status: true })
                 .then(response => {
                     dispatch(setHasNewNotification(false));
+                    removeNotification()
                     router.push(`orders/${id}`)
                 })
                 .catch(error => {

@@ -1,7 +1,7 @@
 
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../my-app/app/store/store";
+import { RootState } from "../app/store/store";
 import { setNotification, setHasNewNotification } from "../app/store/actions/messActions";
 import { io, Socket } from "socket.io-client";
 
@@ -23,7 +23,7 @@ const useListenMessages = () => {
 	const socket = useRef<Socket | null>(null);
 
 	useEffect(() => {
-		socket.current = io("https://serenity-adventures-demo.onrender.com/");
+		socket.current = io("https://serenity-adventures-demo.onrender.com");
 
 		return () => {
 			if (socket.current) {

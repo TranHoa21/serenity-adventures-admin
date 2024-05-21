@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-
+import Cookies from 'js-cookie';
 import axiosInstance from "../app/api/axiosInstance";
 import { setHasNewNotification } from "../app/store/actions/messActions";
 import { useDispatch } from "react-redux";
@@ -14,7 +14,7 @@ const useGetNotifications = () => {
         const getConversations = async () => {
             setLoading(true);
             try {
-                const res = await axiosInstance.get("https://serenity-adventures-demo.onrender.com//api/v1/notification");
+                const res = await axiosInstance.get("https://serenity-adventures-demo.onrender.com/api/v1/notification");
                 const data = await res.data;
                 const status = data.status
                 if (data.error) {
@@ -23,6 +23,7 @@ const useGetNotifications = () => {
                 console.log("check data>>>", data)
                 setNotifications(data);
                 dispatch(setHasNewNotification(status));
+                Cookies.set("isShowNotification", true.toString())
 
             } catch (error: any) {
                 toast.error(error.message);

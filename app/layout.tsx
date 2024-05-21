@@ -14,14 +14,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Provider store={store}>
+    <html lang="en">
+      <Provider store={store}>
 
-      <html lang="en">
+
         <body className={inter.className}>
           {children}
         </body>
-      </html>
-    </Provider>
+
+      </Provider>
+
+    </html>
 
 
   );

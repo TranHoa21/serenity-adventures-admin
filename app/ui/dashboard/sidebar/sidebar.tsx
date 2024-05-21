@@ -13,16 +13,13 @@ import {
     MdNotifications, MdOutlineChat, MdPublic,
 } from "react-icons/md";
 import MenuLink from "./menuLink/menuLink";
-import Image from "next/image"
 import { useRouter } from 'next/navigation';
 import { useState, useEffect, useCallback } from "react";
 import { logout } from '../../../store/actions/authActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store/store';
 import axios from 'axios';
-import { loginSuccess } from '../../../store/actions/authActions';
-import { setUser } from '../../../store/actions/userActions';
-
+import { getAuthCookie, removeAuthCookie } from "../../../../utils/cookies"
 const menuItem = [
 
     {
@@ -96,69 +93,48 @@ interface User {
 
 export default function SideBar() {
     const router = useRouter();
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const dispatch = useDispatch();
     const user = useSelector((state: RootState) => state.user);
     const [storedUser, setStoredUser] = useState<User | null>(null);
-    const [fetchDataTrigger, setFetchDataTrigger] = useState(false);
-    const hasNewMessage = useSelector((state: RootState) => state.mess.admin);
-    const hasNewNotification = useSelector((state: RootState) => state.mess.status);
+    const { isShowChat, isShowNotification, userId } = getAuthCookie()
     const handleLogout = () => {
-        dispatch(logout());
-        setIsLoggedIn(false);
+        removeAuthCookie();
         router.push('/login');
     };
-
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get<User>(`https://serenity-adventures-demo.onrender.com//api/v1/user/${user.id}`);
-                const userData = response.data;
-
+                const response = await axios.get<User[]>(`https://serenity-adventures-demo.onrender.com/api/v1/user/${user.id}`);
+                const userData = response.data[0]
                 setStoredUser(userData);
-                dispatch(setUser({ ...user, id: user.id }));
+
+
             } catch (error) {
                 console.error('Lỗi khi lấy thông tin người dùng:', error);
             }
         };
 
-        if (fetchDataTrigger || user.id) {
-            fetchData();
-            setFetchDataTrigger(false);
-        }
-    }, [fetchDataTrigger, user, dispatch]);
+        fetchData()
 
-    useEffect(() => {
-        const storedUserData = useSelector((state: RootState) => state.user.id);
-        ;
-        if (storedUserData) {
-            const parsedUserData = JSON.parse(storedUserData);
-            setStoredUser(parsedUserData);
-        }
-    }, []);
+    }, [userId]);
 
-    useEffect(() => {
-        if (user && user.id) {
-            const triggerFetchData = () => {
-                setFetchDataTrigger(true);
-            };
-            triggerFetchData();
-        }
-    }, [user]);
+
 
     return (
         <div className="side-container">
             <div className="user">
                 {storedUser && (
-                    <img src={storedUser.avatar} alt="avatar" className="userImage" width="50" height="50" />
+                    <>
+                        <img src={storedUser.avatar} alt="avatar" className="userImage" width="50" height="50" />
+                        <div className="userDetail">
+                            <span className="userName">{storedUser.name}</span>
+                            <span className="userTitle">Administrator</span>
+                        </div>
+                    </>
                 )}
-                <div className="userDetail">
-                    <span className="userName">{storedUser?.name}</span>
-                    <span className="userTitle">Administrator</span>
-                </div>
             </div>
             <ul className="list">
-                <li key="chat">
+                <li key="Dashboard">
                     <MenuLink
                         item={{
                             title: "Dashboard",
@@ -167,7 +143,7 @@ export default function SideBar() {
                         }}
                     />
                 </li>
-                <li key="chat">
+                <li key="users">
                     <MenuLink
                         item={{
                             title: "User",
@@ -176,7 +152,7 @@ export default function SideBar() {
                         }}
                     />
                 </li>
-                <li key="chat">
+                <li key="tours">
                     <MenuLink
                         item={{
                             title: "Tours",
@@ -185,7 +161,7 @@ export default function SideBar() {
                         }}
                     />
                 </li>
-                <li key="chat">
+                <li key="orders">
                     <MenuLink
                         item={{
                             title: "Orders",
@@ -194,7 +170,7 @@ export default function SideBar() {
                         }}
                     />
                 </li>
-                <li key="chat">
+                <li key="blogs">
                     <MenuLink
                         item={{
                             title: "Blogs",
@@ -212,9 +188,9 @@ export default function SideBar() {
                             icon: <MdOutlineChat />,
                         }}
                     />
-                    {hasNewMessage === false && <div className="new-notification"></div>}
+                    {isShowChat === true && <div className="new-notification"></div>}
                 </li>
-                <li className="notification" key="chat">
+                <li className="notification" key="Notification">
                     <MenuLink
                         item={{
                             title: "Notification",
@@ -222,7 +198,7 @@ export default function SideBar() {
                             icon: <MdNotifications />
                         }}
                     />
-                    {hasNewNotification === false && <div className="new-notification"></div>}
+                    {isShowNotification === true && <div className="new-notification"></div>}
 
                 </li>
             </ul>

@@ -6,6 +6,7 @@ import { extractTime } from "../../utils/extractTime";
 import "../../app/style/components/message.scss"
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { getAuthCookie } from "../../utils/cookies"
 
 interface Message {
     senderId: string;
@@ -22,20 +23,20 @@ interface User {
 
 const Message: React.FC<{ message: Message }> = ({ message }) => {
     const [storedUser, setStoredUser] = useState<User | null>(null);
-    const user = useSelector((state: RootState) => state.user);
-    const fromMe = message.senderId === user.id;
+    const userId = getAuthCookie().userId;
+    const fromMe = String(message.senderId) === String(userId);
     const formattedTime = extractTime(message.createdAt);
     const chatClassName = fromMe ? "chat-start" : "chat-and";
-    const profilePic = fromMe ? user.avatar : storedUser?.avatar;
     const bubbleBgColor = fromMe ? "bg-blue-500" : "";
     const shakeClass = message.shouldShake ? "" : "";
+    const profilePic = fromMe ? storedUser?.avatar : "";
 
 
     useEffect(() => {
-        if (user) {
+        if (userId) {
             const fetchUser = async () => {
                 try {
-                    const response = await axios.get(`https://serenity-adventures-demo.onrender.com//api/v1/user/${message.senderId}`);
+                    const response = await axios.get(`https://serenity-adventures-demo.onrender.com/api/v1/user/${message.senderId}`);
                     const userData = response.data;
 
                     setStoredUser(userData);
@@ -47,7 +48,7 @@ const Message: React.FC<{ message: Message }> = ({ message }) => {
 
             fetchUser();
         }
-    }, [user]);
+    }, [userId]);
 
 
     return (

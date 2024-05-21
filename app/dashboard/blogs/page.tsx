@@ -25,7 +25,7 @@ export default function Blog({ }: Props) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://serenity-adventures-demo.onrender.com//api/v1/post');
+                const response = await axios.get('https://serenity-adventures-demo.onrender.com/api/v1/post');
                 const sortedData = response.data.sort((a: Payment, b: Payment) => {
                     // Sort tours based on their id in descending order (newest first)
                     return b.id - a.id;
@@ -52,7 +52,7 @@ export default function Blog({ }: Props) {
 
     const handleDelete = (post: Payment) => {
         axios
-            .delete(`https://serenity-adventures-demo.onrender.com//api/v1/tour/${post.id}`)
+            .delete(`https://serenity-adventures-demo.onrender.com/api/v1/tour/${post.id}`)
             .then((response) => {
                 console.log('Tour deleted successfully');
 

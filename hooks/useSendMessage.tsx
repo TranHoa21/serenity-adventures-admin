@@ -8,7 +8,7 @@ import { io, Socket } from "socket.io-client";
 
 interface Message {
     content: string;
-    sender: string;
+    sender: any;
     timestamp: number;
 }
 
@@ -43,7 +43,7 @@ const useSendMessage = () => {
             if (!selectedConversation?.id) {
                 throw new Error("No conversation selected");
             }
-            const res = await axiosInstance.post(`https://serenity-adventures-demo.onrender.com//api/v1/messages/send/${selectedConversation.id}`, message);
+            const res = await axiosInstance.post(`https://serenity-adventures-demo.onrender.com/api/v1/messages/send/${selectedConversation.id}`, message);
             const data = await res.data;
             if (data.error) throw new Error(data.error);
 

@@ -34,7 +34,7 @@ export default function Order() {
     const router = useRouter();
     const userId = bookingDetails?.userId
     useEffect(() => {
-        axios.get<Payment>(`https://serenity-adventures-demo.onrender.com//api/v1/booking/${id}`)
+        axios.get<Payment>(`https://serenity-adventures-demo.onrender.com/api/v1/booking/${id}`)
             .then(response => {
                 setBookingDetails(response.data);
             })
@@ -54,11 +54,11 @@ export default function Order() {
         const id = booking.id;
         const booking_status = bookingStatus
         Promise.all([
-            axios.put(`https://serenity-adventures-demo.onrender.com//api/v1/booking/${id}`, { booking_status }),
+            axios.put(`https://serenity-adventures-demo.onrender.com/api/v1/booking/${id}`, { booking_status }),
             router.push("/dashboard/orders")
         ]).then(([putResponse, _]) => {
             setBookingDetails(putResponse.data);
-            return axios.post('https://serenity-adventures-demo.onrender.com//api/v1/notificationclient', {
+            return axios.post('https://serenity-adventures-demo.onrender.com/api/v1/notificationclient', {
                 userId: userId,
                 bookingId: id,
                 message: `The customer has just created a new order ${booking_status}`

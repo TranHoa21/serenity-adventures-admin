@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Link from "next/link";
 import React from "react";
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import "../../style/order/style.scss"
 import moment from 'moment';
 import { BookingSelect } from "./booking"
@@ -41,7 +41,7 @@ export default function Order() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://serenity-adventures-demo.onrender.com//api/v1/booking');
+                const response = await axios.get('https://serenity-adventures-demo.onrender.com/api/v1/booking');
                 const sortedData = response.data.sort((a: Payment, b: Payment) => {
                     // Sort tours based on their id in descending order (newest first)
                     return b.id - a.id;
@@ -69,7 +69,7 @@ export default function Order() {
         const id = booking.id;
         console.log("check id >>", id);
         setView(true);
-        axios.get(`https://serenity-adventures-demo.onrender.com//api/v1/booking/${id}`)
+        axios.get(`https://serenity-adventures-demo.onrender.com/api/v1/booking/${id}`)
             .then(response => {
                 setBookingDetails(response.data);
             })
@@ -84,11 +84,11 @@ export default function Order() {
         const id = booking.id;
         const booking_status = bookingStatus
         Promise.all([
-            axios.put(`https://serenity-adventures-demo.onrender.com//api/v1/booking/${id}`, { booking_status }),
+            axios.put(`https://serenity-adventures-demo.onrender.com/api/v1/booking/${id}`, { booking_status }),
             router.push("/dashboard/orders")
         ]).then(([putResponse, _]) => {
             setBookingDetails(putResponse.data);
-            return axios.post('https://serenity-adventures-demo.onrender.com//api/v1/notificationclient', {
+            return axios.post('https://serenity-adventures-demo.onrender.com/api/v1/notificationclient', {
                 userId: userId,
                 bookingId: id,
                 message: `The customer has just created a new order ${booking_status}`
@@ -99,7 +99,7 @@ export default function Order() {
     };
     const handleDelete = (booking: Payment) => {
         axios
-            .delete(`https://serenity-adventures-demo.onrender.com//api/v1/booking/${booking.id}`)
+            .delete(`https://serenity-adventures-demo.onrender.com/api/v1/booking/${booking.id}`)
             .then((response) => {
                 console.log('Tour deleted successfully');
 

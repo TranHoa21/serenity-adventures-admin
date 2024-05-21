@@ -19,7 +19,7 @@ export default function Transactions() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://serenity-adventures-demo.onrender.com//api/v1/booking');
+                const response = await axios.get('https://serenity-adventures-demo.onrender.com/api/v1/booking');
                 const sortedData = response.data.sort((a: Payment, b: Payment) => {
                     // Sort tours based on their id in descending order (newest first)
                     return b.id - a.id;

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../app/store/store";
 import { setMessages, setHasNewMessage } from "../app/store/actions/messActions";
 import { io } from "socket.io-client";
+import { getAuthCookie } from "../utils/cookies"
 
 interface Message {
 	senderId: string;
@@ -16,17 +17,18 @@ interface Message {
 const useListenMessages = () => {
 	const dispatch = useDispatch();
 	const { messages } = useSelector((state: RootState) => state.mess);
-	const currentUserId = useSelector((state: RootState) => state.user.id);
+	const currentUserId = getAuthCookie().userId;
+
 	;
 
-	const socket = io("https://serenity-adventures-demo.onrender.com/");
+	const socket = io("https://serenity-adventures-demo.onrender.com");
 
 
 
 	useEffect(() => {
 		const handleNewMessage = (newMessage: Message) => {
 			newMessage.shouldShake = true;
-			if (newMessage.senderId !== currentUserId) {
+			if (String(newMessage.senderId) !== String(currentUserId)) {
 				dispatch(setHasNewMessage(false));
 
 			}

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectConversation, setHasNewMessage } from "../../app/store/actions/messActions";
 import "../../app/style/components/conversation.scss";
 import axios from "axios";
+import { removeShowChat } from "../../utils/cookies"
 
 const Conversation = ({ conversation, lastIdx }: any) => {
     const dispatch = useDispatch();
@@ -13,11 +14,10 @@ const Conversation = ({ conversation, lastIdx }: any) => {
 
     const handleSelectConversation = async () => {
         try {
-            // Dispatch action to select conversation and set new message flag
             dispatch(selectConversation(conversation));
             dispatch(setHasNewMessage(true));
-
-            await axios.put(`https://serenity-adventures-demo.onrender.com//api/v1/messages/${conversation.id}`, { admin: true });
+            removeShowChat()
+            await axios.put(`https://serenity-adventures-demo.onrender.com/api/v1/messages/${conversation.id}`, { admin: true });
         } catch (error) {
             console.error('Error updating message status:', error);
         }

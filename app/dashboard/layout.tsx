@@ -15,8 +15,9 @@ export default function Layout({
     children: React.ReactNode;
 }>) {
     return (
-        <Provider store={store}>
-            <html lang="en">
+        <html lang="en">
+            <Provider store={store}>
+
                 <body className={inter.className}>
                     <div className="container">
                         <div className="menu">
@@ -28,8 +29,9 @@ export default function Layout({
                         </div>
                     </div>
                 </body>
-            </html>
-        </Provider>
+            </Provider>
+        </html>
+
     );
 }
 

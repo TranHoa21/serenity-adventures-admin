@@ -28,7 +28,7 @@ function UsersPage({ }: Props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://serenity-adventures-demo.onrender.com//api/v1/user');
+        const response = await axios.get('https://serenity-adventures-demo.onrender.com/api/v1/user');
         const data = response.data;
         console.log("check data", data)
         setData(data);
