@@ -1,12 +1,11 @@
 "use client"
 
-import React, { useState, useRef, ChangeEvent, FormEvent, useEffect } from 'react';
+import React, { useState, useRef, ChangeEvent, FormEvent, } from 'react';
 import ReactQuill from 'react-quill';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import "../../../style/blog/create.scss";
 import 'react-quill/dist/quill.snow.css';
-import dynamic from 'next/dynamic';
 
 const ClientComponent = () => {
     const reactQuillRef = useRef<ReactQuill>(null);
@@ -16,11 +15,8 @@ const ClientComponent = () => {
     const [description, setDescription] = useState('');
     const [image, setImage] = useState<File | null>(null);
     const [reviewImageUrl, setPreviewImageUrl] = useState(''); // Thay đổi kiểu dữ liệu của state image
-    const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
     const router = useRouter();
-
-
 
 
 
@@ -62,7 +58,7 @@ const ClientComponent = () => {
                 formData.append('file', image); // Sửa 'image' thành 'file'
             }
 
-            const response = await axios.post('https://serenity-adventures-demo.onrender.com/api/v1/post', formData, {
+            const response = await axios.post('http://localhost:3001/api/v1/post', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data' // Đảm bảo cài đặt 'Content-Type' là 'multipart/form-data'
                 }
@@ -81,7 +77,6 @@ const ClientComponent = () => {
 
         <div className="create">
             <h1>Create New Tour  </h1>
-
             <span className="in-title" >Title:
                 <textarea
                     value={title}
@@ -90,7 +85,6 @@ const ClientComponent = () => {
                     placeholder=""
                     required />
             </span>
-
             <img src={reviewImageUrl} className="img-blog" />
             <input
                 className="image-file"
@@ -98,7 +92,6 @@ const ClientComponent = () => {
                 name="image"
                 onChange={handleImageChange}
             />
-
             <div>
                 <span className="sp-description">Description:
                     <textarea
@@ -116,6 +109,7 @@ const ClientComponent = () => {
 
             <div className="content">
                 <ReactQuill
+                    ref={reactQuillRef}
                     theme="snow"
                     placeholder="Start writing..."
                     modules={{

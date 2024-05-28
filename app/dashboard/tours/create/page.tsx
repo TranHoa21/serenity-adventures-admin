@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useRef, ChangeEvent, FormEvent, useEffect } from 'react';
+import React, { useState, useRef, ChangeEvent, FormEvent, } from 'react';
 import dynamic from 'next/dynamic';
 import 'react-quill/dist/quill.snow.css';
 import ReactQuill from 'react-quill';
@@ -15,10 +15,10 @@ const ClientComponent = () => {
     const [title, setTitle] = useState('');
     const [places_name, setPlaces_name] = useState('');
     const [description, setDescription] = useState('');
-    const [image, setImage] = useState<File | null>(null);
+    const [image, setImage] = useState<File | null>(null); // Thay đổi kiểu dữ liệu của state image
     const router = useRouter();
     const [price, setPrice] = useState<number>(0);
-    const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+
 
     const onChange = (newValue: string, delta: any, source: any, editor: any) => {
         if (source === 'user') {
@@ -35,10 +35,7 @@ const ClientComponent = () => {
     const handlePlacesChange = (value: string) => {
         setPlaces_name(value);
     };
-    const handlePriceChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        const value = parseFloat(e.target.value); // Chuyển đổi giá trị từ string sang number
-        setPrice(value);
-    };
+
     const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files && e.target.files[0];
         if (file) {
@@ -56,27 +53,30 @@ const ClientComponent = () => {
             formData.append('places_name', places_name);
             formData.append('description', value);
             if (image) {
-                formData.append('file', image);
+                formData.append('file', image); // Sửa 'image' thành 'file'
             }
 
-            const response = await axios.post('https://serenity-adventures-demo.onrender.com/api/v1/tour', formData, {
+            const response = await axios.post('http://localhost:3001/api/v1/tour', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data' // Đảm bảo cài đặt 'Content-Type' là 'multipart/form-data'
                 }
             });
-            console.log('check:', title, places_name, value, image, price);
-            router.push('/dashboard/tours');
+            console.log('check:', title, places_name, value, image);
+            router.push('/tours');
         } catch (error) {
             console.error('Lỗi:', error);
         }
     };
-
+    const handlePriceChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        const value = parseFloat(e.target.value); // Chuyển đổi giá trị từ string sang number
+        setPrice(value);
+    };
 
 
     return (
+
         <div>
             <h1>Create New Tour  </h1>
-
             <span className="in-title"> Title:
                 <textarea
                     className="inputText"
@@ -94,6 +94,7 @@ const ClientComponent = () => {
 
             <div className="description">
                 <ReactQuill
+                    ref={reactQuillRef}
                     theme="snow"
                     placeholder="Start writing..."
                     modules={{
@@ -137,10 +138,8 @@ const ClientComponent = () => {
                     value={value}
                     onChange={onChange}
                 />
-
             </div>
             <button className="btn" type="submit" onClick={handleSubmit}  >Save</button>
-
             <span className='in-title'>Price:
                 <textarea className='price'
                     onChange={handlePriceChange}
@@ -149,6 +148,7 @@ const ClientComponent = () => {
                     placeholder=""
                     required />
             </span>
+
         </div>
 
     );

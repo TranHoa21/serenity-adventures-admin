@@ -19,7 +19,7 @@ const Notification = ({ notification, lastIdx }: any) => {
                 .then(response => {
                     dispatch(setHasNewNotification(false));
                     removeNotification()
-                    router.push(`orders/${id}`)
+                    router.push(`/orders/${id}`)
                 })
                 .catch(error => {
                     console.error('Failed to fetch booking details:', error);
